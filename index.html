@@ -31,8 +31,12 @@ quad {
 
 .question {
   break-inside: avoid;
-  margin:0;
+  margin: 0;
   padding: 0.1em 0 0.2em 0;
+}
+
+.question p {
+  margin: 1.2em 0 0.4em 0;
 }
 
 .problem {
@@ -44,6 +48,10 @@ quad {
 }
 
 #answer-key {
+  text-align: center;
+}
+
+#answer-key ol {
   text-align: left;
 }
 
@@ -125,7 +133,10 @@ function generate_problem(difficulty){
 }
 
 function generate_one(){
+  answer_key = "<h1>Answer:</h1><p>";
   document.getElementById("problems").innerHTML = generate_problem(0);
+  answer_key += "</p>";
+  document.getElementById("answer-key").innerHTML = answer_key;
 }
 
 function generate_worksheet(){
