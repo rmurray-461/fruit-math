@@ -18,18 +18,18 @@ eq {
   font-family: "Liberation Sans Bold", sans-serif;
   font-size: 60px;
   font-weight: bold;
-  margin: 1em 0;
 }
 
-#problem {
+.problem {
   text-align: center;
+  margin: 1em 0;
 }
 </style>
 <script>
 
 var fruits = "🍓,🍉,🍏,🍊,🍐,🫐,🍅,🥭,🥝,🍌,🍇,🍋".split(",");
 
-function generate(){
+function generate_problem(difficulty){
   // Generates a problem
   var A = Math.floor(10*Math.random());
   var B = Math.floor(10*Math.random());
@@ -65,15 +65,22 @@ function generate(){
   out = out.replace(/A/g, fruits[0]);
   out = out.replace(/B/g, fruits[1]);
   out = out.replace(/C/g, fruits[2]);
-  document.getElementById("problem").innerHTML = out;
+  return "<div class=\"problem\">"+out+"</div>";
+}
+
+function generate_one(){
+  document.getElementById("problems").innerHTML = generate_problem(0);
 }
 
 </script>
 </head>
 <body>
-<div id="problem">
+<h1>Fruit Math Generator</h1>
+<div id="problems">
+<div class="problem">
 <eq>A + B + C = 10</eq>
 </div>
-<button onclick="generate()">Generate!</button>
+</div>
+<button onclick="generate_one()">Generate!</button>
 </body>
 </html>
