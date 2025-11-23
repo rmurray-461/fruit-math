@@ -15,6 +15,18 @@ button {
   font-size: inherit;
 }
 
+datalist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  writing-mode: horizontal-tb;
+  width: 200px;
+}
+
+option {
+  padding: 0;
+}
+
 eq {
   font-family: "Liberation Sans Bold", sans-serif;
   font-size: 20pt;
@@ -24,6 +36,19 @@ eq {
 
 quad {
   margin-left: 2em;
+}
+
+slider {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 35%;
+  width: 30%;
+  padding: 1em 0;
+}
+
+slider input {
+  width:200px;
+  margin:0;
 }
 
 .question-page {
@@ -196,7 +221,18 @@ function generate_worksheet(){
 <button onclick="generate_worksheet()">Generate Many!</button>
 <p>Press one of the buttons to generate a fruit math problem. <b>Generate One!</b> will make one problem. <b>Generate Many!</b> will create a worksheet of fifty problems, which you can print out with Ctrl+P.</p>
 </div>
-<div id="answer-key">
+<div id="answer-key"></div>
+<slider class="no-print">
+<div><label for="diff">Adjust difficulty for generating one:</label></div>
+<div><input id="diff" name="diff" list="diff_values" type="range" min=0 max=4 step=1 />
+<datalist id="diff_values">
+  <option value="0" label="Easy" />
+  <option value="1" />
+  <option value="2" label="Medium" />
+  <option value="3" />
+  <option value="4" label="Hard" />
+</datalist>
 </div>
+</slider>
 </body>
 </html>
