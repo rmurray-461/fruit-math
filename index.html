@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fruit Math Generator</title>
+<style>
+
+body {
+  text-align: center;
+}
+
+eq {
+  font-family: "Liberation Sans Bold", sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+#problem {
+  text-align: center;
+}
+</style>
+<script>
+
+function generate(){
+  // Generates a problem
+  var A = Math.floor(20*Math.random());
+  var B = Math.floor(20*Math.random());
+  var C = Math.floor(20*Math.random());
+  var out = "";
+  for(let i = 0; i < 3; i++){
+    
+    out += "<eq>"+A+B+C+"</eq><br/>"
+  }
+  out += "<eq>A + B + C = ?</eq>"
+  document.getElementById("problem").innerHTML = out;
+}
+
+</script>
+</head>
+<body>
+<div id="problem">
+<eq>A + B + C = 10</eq>
+</div>
+<button onclick="generate()">Generate!</button>
+</body>
+</html>
