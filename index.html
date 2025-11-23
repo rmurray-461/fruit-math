@@ -18,6 +18,7 @@ eq {
   font-family: "Liberation Sans Bold", sans-serif;
   font-size: 60px;
   font-weight: bold;
+  margin: 1em 0;
 }
 
 #problem {
@@ -26,6 +27,8 @@ eq {
 </style>
 <script>
 
+var fruits = "🍓,🍉,🍏,🍊,🍐,🫐,🍅,🥭,🥝,🍌,🍇,🍋".split(",");
+
 function generate(){
   // Generates a problem
   var A = Math.floor(10*Math.random());
@@ -33,9 +36,9 @@ function generate(){
   var C = Math.floor(10*Math.random());
   var out = "";
   for(let i = 0; i < 3; i++){
-    var c1 = Math.floor(Math.sqrt(49*Math.random()));
-    var c2 = Math.floor(Math.sqrt(49*Math.random()));
-    var c3 = Math.floor(Math.sqrt(49*Math.random()));
+    var c1 = 7-Math.floor(Math.sqrt(49*Math.random()));
+    var c2 = 7-Math.floor(Math.sqrt(49*Math.random()));
+    var c3 = 7-Math.floor(Math.sqrt(49*Math.random()));
     out += "<eq>";
     switch(i){
       case 0:
@@ -54,6 +57,14 @@ function generate(){
     out += " = "+(c1*A+c2*B+c3*C)+"</eq><br/>"
   }
   out += "<eq>A + B + C = ?</eq>";
+  for (let i = fruits.length-1; i > 0; i--) {
+    let r = Math.floor(Math.random() * i);
+    [fruits[i], fruits[r]] = [fruits[r], fruits[i]];
+  }
+  out = out.replace(/1([ABC])/g, "$1");
+  out = out.replace(/A/g, fruits[0]);
+  out = out.replace(/B/g, fruits[1]);
+  out = out.replace(/C/g, fruits[2]);
   document.getElementById("problem").innerHTML = out;
 }
 
