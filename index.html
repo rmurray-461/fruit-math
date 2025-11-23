@@ -20,6 +20,10 @@ eq {
   margin: 0;
 }
 
+quad {
+  margin-left: 2em;
+}
+
 .question-page {
   columns: 2;
   break-inside: avoid;
@@ -36,7 +40,11 @@ eq {
 }
 
 #problems {
-  
+  break-after: always;
+}
+
+#answer-key {
+  text-align: left;
 }
 
 @media print {
@@ -47,16 +55,25 @@ eq {
 </style>
 <script>
 
-// TODO: Worksheet mode (Generate a bunch of problems with answer key)
 // TODO: Difficulty levels
 
 var fruits = "🍓,🍉,🍏,🍊,🍐,🫐,🍅,🥭,🥝,🍌,🍇,🍋".split(",");
+
+var answer_key = "";
 
 function generate_problem(difficulty){
   // Generates a problem
   var A = Math.floor(10*Math.random()) + 1;
   var B = Math.floor(10*Math.random()) + 1;
   var C = Math.floor(10*Math.random()) + 1;
+  switch(difficulty){
+    case 3:
+    case 4:
+      A = Math.floor(21*Math.random()) - 10;
+      B = Math.floor(21*Math.random()) - 10;
+      C = Math.floor(21*Math.random()) - 10;
+      break;
+  }
   var out = "";
   for(let i = 0; i < 3; i++){
     var c1 = 7-Math.floor(Math.sqrt(49*Math.random()));
@@ -64,9 +81,12 @@ function generate_problem(difficulty){
     var c3 = 7-Math.floor(Math.sqrt(49*Math.random()));
     switch(difficulty){
       case 0:
-        c1 = 1; c2 = 1;
+        c1 = 1; c2 = 1; c3 = 1;
         break;
       case 1:
+        c1 = 1; c2 = 1;
+        break;
+      case 2:
         c1 = 1;
         break;
     }
@@ -96,6 +116,11 @@ function generate_problem(difficulty){
   out = out.replace(/A/g, fruits[0]);
   out = out.replace(/B/g, fruits[1]);
   out = out.replace(/C/g, fruits[2]);
+  let answer = "A = "+A+"<quad/>B = "+B+"<quad/>C = "+C+"<quad/>A + B + C = "+(A+B+C);
+  answer = answer.replace(/A/g, fruits[0]);
+  answer = answer.replace(/B/g, fruits[1]);
+  answer = answer.replace(/C/g, fruits[2]);
+  answer_key += answer;
   return "<div class=\"problem\">"+out+"</div>";
 }
 
@@ -106,7 +131,9 @@ function generate_one(){
 function generate_worksheet(){
   // Generate 50 problems of increasing difficulty
   var out = "<div class=\"question-page\">";
+  answer_key = "<h1>Answer key</h1><ol>";
   for(let i = 0; i < 50; i++){
+    answer_key += "<li>";
     out += "<div class=\"question\">";
     out += "<p>#"+(i+1)+"</p>";
     out += generate_problem(Math.floor(i/10));
@@ -114,9 +141,12 @@ function generate_worksheet(){
     if(i % 10 == 9){
       out += "</div><div class=\"question-page\">"
     }
+    answer_key += "</li>";
   }
   out += "</div>"
+  answer_key += "</ol>";
   document.getElementById("problems").innerHTML = out;
+  document.getElementById("answer-key").innerHTML = answer_key;
 }
 
 </script>
@@ -134,6 +164,8 @@ function generate_worksheet(){
 <button onclick="generate_one()">Generate One!</button>
 <button onclick="generate_worksheet()">Generate Many!</button>
 <p>Press one of the buttons to generate a fruit math problem. <b>Generate One!</b> will make one problem. <b>Generate Many!</b> will create a worksheet of fifty problems, which you can print out with Ctrl+P.</p>
+</div>
+<div id="answer-key">
 </div>
 </body>
 </html>
