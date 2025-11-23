@@ -133,10 +133,20 @@ function generate_problem(difficulty){
 }
 
 function generate_one(){
-  answer_key = "<h1>Answer:</h1><p>";
+  answer_key = "<button id=\"show-button\" onclick=\"show_answer()\" >Show answer</button><div id=\"hidden-answer\" style=\"display:none;\"><h1>Answer:</h1><p>";
   document.getElementById("problems").innerHTML = generate_problem(0);
-  answer_key += "</p>";
+  answer_key += "</p></div>";
   document.getElementById("answer-key").innerHTML = answer_key;
+}
+
+function show_answer(){
+  document.getElementById("hidden-answer").style.display = "block";
+  document.getElementById("show-button").innerHTML = "Hide answer";
+  document.getElementById("show-button").onclick = function(){
+    document.getElementById("hidden-answer").style.display = "none";
+    document.getElementById("show-button").innerHTML = "Show answer";
+    document.getElementById("show-button").onclick = show_answer;
+  }
 }
 
 function generate_worksheet(){
@@ -162,7 +172,7 @@ function generate_worksheet(){
 
 </script>
 </head>
-<body>
+<body onload="generate_one()" >
 <div class="no-print">
 <h1>Fruit Math Generator</h1>
 </div>
