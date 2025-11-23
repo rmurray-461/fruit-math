@@ -97,6 +97,13 @@ var fruits = "🍓,🍉,🍏,🍊,🍐,🫐,🍅,🥭,🥝,🍌,🍇,🍋".split
 
 var answer_key = "";
 
+var diff_setting = 0;
+
+function adjust_difficulty(){
+  diff_setting = +document.getElementById("diff").value;
+  generate_one();
+}
+
 function generate_problem(difficulty){
   // Generates a problem
   var A = Math.floor(10*Math.random()) + 1;
@@ -169,9 +176,10 @@ function generate_problem(difficulty){
 
 function generate_one(){
   answer_key = "<button id=\"show-button\" onclick=\"show_answer()\" >Show answer</button><div id=\"hidden-answer\" style=\"display:none;\"><h1>Answer:</h1><p>";
-  document.getElementById("problems").innerHTML = generate_problem(0);
+  document.getElementById("problems").innerHTML = generate_problem(diff_setting);
   answer_key += "</p></div>";
   document.getElementById("answer-key").innerHTML = answer_key;
+  document.getElementById("diff-slider").style.display = "flex";
 }
 
 function show_answer(){
@@ -203,6 +211,7 @@ function generate_worksheet(){
   answer_key += "</ol>";
   document.getElementById("problems").innerHTML = out;
   document.getElementById("answer-key").innerHTML = answer_key;
+  document.getElementById("diff-slider").style.display = "none";
 }
 
 </script>
@@ -222,9 +231,9 @@ function generate_worksheet(){
 <p>Press one of the buttons to generate a fruit math problem. <b>Generate One!</b> will make one problem. <b>Generate Many!</b> will create a worksheet of fifty problems, which you can print out with Ctrl+P.</p>
 </div>
 <div id="answer-key"></div>
-<slider class="no-print">
+<slider id="diff-slider" class="no-print">
 <div><label for="diff">Adjust difficulty for generating one:</label></div>
-<div><input id="diff" name="diff" list="diff_values" type="range" min=0 max=4 step=1 />
+<div><input id="diff" name="diff" list="diff_values" type="range" min=0 max=4 step=1 onclick="adjust_difficulty()" />
 <datalist id="diff_values">
   <option value="0" label="Easy" />
   <option value="1" />
