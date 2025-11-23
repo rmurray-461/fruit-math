@@ -41,6 +41,7 @@ quad {
 
 .problem {
   text-align: center;
+  padding: 0 0 1em 0;
 }
 
 #problems {
@@ -102,7 +103,12 @@ function generate_problem(difficulty){
     switch(i){
       case 0:
       c3 = 0;
-      out += c1+"×A + "+c2+"×B";
+      if(difficulty == 0){
+        c2 = 0;
+        out += c1+"×A";
+      } else {
+        out += c1+"×A + "+c2+"×B";
+      }
       break;
       case 1:
       c2 = 0;
@@ -124,10 +130,12 @@ function generate_problem(difficulty){
   out = out.replace(/A/g, fruits[0]);
   out = out.replace(/B/g, fruits[1]);
   out = out.replace(/C/g, fruits[2]);
+  out = out.replace(/-/g, "&minus;");
   let answer = "A = "+A+"<quad/>B = "+B+"<quad/>C = "+C+"<quad/>A + B + C = "+(A+B+C);
   answer = answer.replace(/A/g, fruits[0]);
   answer = answer.replace(/B/g, fruits[1]);
   answer = answer.replace(/C/g, fruits[2]);
+  answer = answer.replace(/-/g, "&minus;");
   answer_key += answer;
   return "<div class=\"problem\">"+out+"</div>";
 }
