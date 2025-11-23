@@ -27,11 +27,12 @@ eq {
 
 .question {
   break-inside: avoid;
+  margin:0;
+  padding: 0.1em 0 0.2em 0;
 }
 
 .problem {
   text-align: center;
-  margin: 1em 0;
 }
 
 #problems {
@@ -61,6 +62,14 @@ function generate_problem(difficulty){
     var c1 = 7-Math.floor(Math.sqrt(49*Math.random()));
     var c2 = 7-Math.floor(Math.sqrt(49*Math.random()));
     var c3 = 7-Math.floor(Math.sqrt(49*Math.random()));
+    switch(difficulty){
+      case 0:
+        c1 = 1; c2 = 1;
+        break;
+      case 1:
+        c1 = 1;
+        break;
+    }
     out += "<eq>";
     switch(i){
       case 0:
